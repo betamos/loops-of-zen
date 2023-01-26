@@ -1,10 +1,17 @@
 <script lang="ts">
 	import { Grid } from '$lib/loz';
 	import Tile from '$lib/Tile.svelte';
-	let grid = new Grid(5);
+	let size = 5;
+	$: grid = new Grid(size);
 </script>
 
-<h1>Loops of Zen <br />{grid.size}x{grid.size}</h1>
+<h1>Loops of Zen</h1>
+
+<div class="prefs">
+	<button on:click={() => size--}>-</button>
+	<span>{size}×{size}</span>
+	<button on:click={() => size++}>+</button>
+</div>
 
 <div class="grid" class:success={grid.success}>
 	<svg width={grid.size * 50} viewBox="0 0 {100 * grid.size} {100 * grid.size}">
@@ -33,8 +40,10 @@
 </div>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Solitreo&display=swap');
+
 	:global(html, body) {
-		margin: 0 auto;
+		margin: 20px auto;
 		background: #262927;
 		text-align: center;
 		display: flex;
@@ -42,14 +51,49 @@
 	}
 
 	h1 {
-		font-family: 'Ubuntu Thin', Tahoma, Geneva, Verdana, sans-serif;
-		color: rgba(119, 196, 145, 0.397);
-		margin: 50px;
+		color: #77c49165;
 		pointer-events: none;
+		font-weight: 400;
+		font-family: 'Solitreo', cursive;
+		margin: 0 0;
+	}
+
+	.prefs {
+		color: #77c49165;
+		user-select: none;
+		font-family: 'Courier New', Courier, monospace;
+		font-weight: bold;
+	}
+
+	span {
+		min-width: 100px;
+	}
+
+	button {
+		margin: 0 10px;
+		width: 25px;
+		background: transparent;
+		border: none;
+		border-radius: 5px;
+		padding: 3px 8px;
+		text-align: center;
+		font-size: 15px;
+		outline: 1px solid #fff2;
+		color: white;
+		opacity: 0;
+		transition: 0.2s;
+	}
+
+	button:hover {
+		background: #fff1;
+	}
+
+	.prefs:hover button {
+		opacity: 1;
 	}
 
 	.grid {
-		margin: 0 auto;
+		margin: 50px auto;
 		/* swidth: 400px;
 		heisght: 400px; */
 		display: grid;
