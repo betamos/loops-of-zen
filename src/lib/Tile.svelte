@@ -3,7 +3,9 @@
 	import { Edge } from './loz';
 	export let tile: Tile;
 
-	const getPos = (o: number): Pos => {
+	$: dots = getDots(tile);
+
+	function getPos(o: number): Pos {
 		if (o == 0) {
 			return { x: 50, y: 0 };
 		} else if (o == 1) {
@@ -14,15 +16,17 @@
 			return { x: 0, y: 50 };
 		}
 		throw new Error('out of bounds');
-	};
-
-	const dots = new Array<Pos>();
-	for (const [o, val] of tile.shape.entries()) {
-		if (val == Edge.On) {
-			const pos = getPos(o);
-			dots.push(pos);
-			//dots.push({ x: pos.y, y: pos.x });
+	}
+	function getDots(tile: Tile): Pos[] {
+		const dots = new Array<Pos>();
+		for (const [o, val] of tile.shape.entries()) {
+			if (val == Edge.On) {
+				const pos = getPos(o);
+				dots.push(pos);
+				//dots.push({ x: pos.y, y: pos.x });
+			}
 		}
+		return dots;
 	}
 	function getPath(dots: Pos[]): string {
 		if (dots.length == 0) {
@@ -78,11 +82,7 @@
 		filter: brightness(1);
 	}
 	g:hover .disc {
-		strokse-dasharray: 10, 10;
 		stroke-width: 2;
 		filter: drop-shadow(5px 7px 3px rgb(0 0 0 / 1));
-
-		strsoke: #4c5c4473;
-		fsill: rgba(181, 255, 181, 0.06);
 	}
 </style>

@@ -19,11 +19,7 @@ type Shape = Edge[]
 
 function rotateShape(s: Shape, i: number): Shape {
     const n = s.length
-    i = ((i % n) + n) % n
-    // if (i < 0) {
-    //     i = -i + s.length
-    // }
-    // i = i % s.length
+    i = ((i % n) + n) % n // negative modulo hack
     const first = s.slice(0, i)
     const last = s.slice(i, s.length)
     return [...last, ...first]
@@ -111,7 +107,6 @@ export class Grid {
 
     generate(pos: Pos) {
         const cur = new Array(4)
-        //const shape = rotateShape(cur.shape, cur.rotation)
         const other = this.neighborValues(pos)
 
         // inputs: yes, no, unknown x 4
