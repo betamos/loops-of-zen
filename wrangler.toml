@@ -1,0 +1,10 @@
+name = "loz" # Your worker name
+# account_id = "YOUR_ID"
+
+main = "./.cloudflare/worker.js"
+site = { bucket = "./.cloudflare/public" }
+
+build = { command = "npm run build" }
+
+compatibility_date = "2023-01-26"
+workers_dev = true
