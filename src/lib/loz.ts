@@ -119,7 +119,6 @@ export class Grid {
                     on++
                 continue
             }
-            //console.log(o)
             const threshList = [
                 .6, // 0 => 1
                 .9, // 1 => 2
@@ -155,7 +154,6 @@ export class Grid {
                 }
             }
         }
-        console.log("check, success!")
         return true
     }
 }
