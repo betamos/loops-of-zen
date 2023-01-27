@@ -2,6 +2,10 @@
 	import Loz from '$lib/Loz.svelte';
 </script>
 
+<svelte:head>
+	<title>Loops of Zen</title>
+</svelte:head>
+
 <h1>Loops of Zen</h1>
 
 <Loz />
