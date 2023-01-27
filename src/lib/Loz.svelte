@@ -50,32 +50,32 @@
 	&nbsp;
 </div>
 
-<div class="grid" class:success={grid.success}>
-	<svg width={grid.size * 50} viewBox="0 0 {100 * grid.size} {100 * grid.size}">
-		{#each grid.tiles as row, y}
-			{#each row as tile, x}
-				<g
-					on:keydown={null}
-					on:click={() => {
-						grid.rotateTile({ x, y }, 1);
-						maybeStartTimer();
-						grid = grid;
-					}}
-					on:contextmenu={(e) => {
-						grid.rotateTile({ x, y }, -1);
-						maybeStartTimer();
-						grid = grid;
-						e.preventDefault();
-					}}
-					class="cell"
-					transform="translate({x * 100}, {y * 100})"
-				>
-					<rect class="disc" width="100" height="100" rx="20" fill="transparent" />
-					<Tile {tile} />
-				</g>
-			{/each}
+<div
+	class="grid"
+	style="grid-template-columns: repeat({grid.size}, 50px)"
+	class:success={grid.success}
+>
+	{#each grid.tiles as row, y}
+		{#each row as tile, x}
+			<div
+				on:keydown={null}
+				on:click={() => {
+					grid.rotateTile({ x, y }, 1);
+					maybeStartTimer();
+					grid = grid;
+				}}
+				on:contextmenu={(e) => {
+					grid.rotateTile({ x, y }, -1);
+					maybeStartTimer();
+					grid = grid;
+					e.preventDefault();
+				}}
+				class="cell"
+			>
+				<Tile {tile} />
+			</div>
 		{/each}
-	</svg>
+	{/each}
 </div>
 
 <button class="continue" class:visible={grid.success} on:click={incrSize}>Continue</button>
@@ -88,6 +88,7 @@
 		font-weight: bold;
 		opacity: 0.4;
 		transition: 0.5s;
+		margin-bottom: 20px;
 	}
 
 	.prefs.success {
@@ -121,9 +122,6 @@
 	}
 
 	.grid {
-		margin: 50px auto;
-		/* swidth: 400px;
-		heisght: 400px; */
 		display: grid;
 		grid-auto-flow: row;
 		filter: brightness(1);
@@ -133,14 +131,16 @@
 		pointer-events: none;
 		filter: brightness(1.8);
 	}
-	g:hover .disc {
-		/* strokse-dasharray: 10, 10; */
+	.cell {
+		width: 50px;
+		height: 50px;
+		transition: 0.1s;
+		border-radius: 10px;
+	}
+	.cell:hover {
 		stroke-width: 2;
-		filter: drop-shadow(5px 7px 3px rgb(0 0 0 / 1));
-
-		/* stroke: #4c5c4473;
-		fill: #262927; */
-		fill: rgba(181, 255, 181, 0.06);
+		box-shadow: 1px 2px 1px #0002;
+		background: rgba(181, 255, 181, 0.06);
 	}
 
 	.continue {

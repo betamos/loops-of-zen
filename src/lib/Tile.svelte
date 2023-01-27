@@ -4,6 +4,7 @@
 	export let tile: Tile;
 
 	$: dots = getDots(tile);
+	$: path = getPath(dots);
 
 	function getPos(o: number): Pos {
 		if (o == 0) {
@@ -55,11 +56,9 @@
 	}
 </script>
 
-<g style="transform: rotate({tile.rotation * 90}deg)">
-	<!-- <circle class="disc" cx={50} cy={50} r="50" fill="transparent" /> -->
-	<rect class="disc" width="100" height="100" fill="transparent" stroke="#fff0" rx="25" />
+<svg viewBox="0 0 100 100" style="transform: rotate({tile.rotation * 90}deg)">
 	<path
-		d={getPath(dots)}
+		d={path}
 		fill="transparent"
 		stroke-width="21"
 		stroke-linecap="inherit"
@@ -67,22 +66,14 @@
 		stroke="currentColor"
 	/>
 	{#if dots.length == 1}
-		<circle cx={50} cy={50} r="25" fill="currentColor" stroke-width="7" stroke-dasharray="10,5" />
+		<circle cx={50} cy={50} r="25" fill="currentColor" stroke-width="7" />
 	{/if}
-</g>
+</svg>
 
 <style>
-	g {
+	svg {
 		color: #416b2e;
 		transition: 0.15s;
-		transform-origin: center;
-		transform-box: fill-box;
-	}
-	g:hover {
-		filter: brightness(1);
-	}
-	g:hover .disc {
-		stroke-width: 2;
-		filter: drop-shadow(5px 7px 3px rgb(0 0 0 / 1));
+		display: block;
 	}
 </style>

@@ -50,7 +50,7 @@ export class Grid {
         this.tiles = new Array(size).fill([]).map(() => new Array(size).fill(ALL_UNKNOWN))
         for (let y = 0; y < size; y++) {
             for (let x = 0; x < size; x++) {
-                this.generate({x, y})
+                this.generate({ x, y })
             }
         }
         this.scramble()
@@ -60,8 +60,8 @@ export class Grid {
     scramble() {
         for (let y = 0; y < this.size; y++) {
             for (let x = 0; x < this.size; x++) {
-                const tile = this.get({x, y})
-                tile.rotation = Math.floor(Math.random()*8)
+                const tile = this.get({ x, y })
+                tile.rotation = Math.floor(Math.random() * 8)
             }
         }
     }
@@ -82,11 +82,11 @@ export class Grid {
         const other: Pos = Object.create(pos)
         if (o == 0) {
             other.y--
-        } else if (o==1) {
+        } else if (o == 1) {
             other.x++
-        } else if (o==2) {
+        } else if (o == 2) {
             other.y++
-        } else if (o==3) {
+        } else if (o == 3) {
             other.x--
         } else {
             throw new Error("orientation out of bounds")
@@ -111,7 +111,7 @@ export class Grid {
 
         // inputs: yes, no, unknown x 4
         let on = 0;
-        const order = [0,3,2,1]
+        const order = [0, 3, 2, 1]
         for (const o of order) {
             if (other[o] != Edge.Unknown) {
                 cur[o] = other[o]
@@ -134,7 +134,7 @@ export class Grid {
                 cur[o] = Edge.Off
             }
         }
-        this.set(pos, {shape:cur, rotation:0})
+        this.set(pos, { shape: cur, rotation: 0 })
     }
 
     rotateTile = (pos: Pos, delta: number) => {
@@ -146,9 +146,9 @@ export class Grid {
     check = (): boolean => {
         for (let y = 0; y < this.size; y++) {
             for (let x = 0; x < this.size; x++) {
-                const tile = this.get({x, y})
+                const tile = this.get({ x, y })
                 const mine = rotateShape(tile.shape, tile.rotation)
-                const other = this.neighborValues({x, y})
+                const other = this.neighborValues({ x, y })
                 for (let o = 0; o < 4; o++) {
                     if (mine[o] != other[o])
                         return false
