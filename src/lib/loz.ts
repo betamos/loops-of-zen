@@ -99,8 +99,8 @@ export class Grid {
         const ret: Edge[] = []
         for (let o = 0; o < 4; o++) {
             const other = this.neighbor(pos, o)
-            const shape = other.shape// rotateShape(other.shape, other.rotation)
-            ret.push(shape[(o+2) % 4])
+            const shape = rotateShape(other.shape, other.rotation)
+            ret.push(shape[(o + 2) % 4])
         }
         return ret
     }
